@@ -1,0 +1,22 @@
+# 敏感信息
+credentials/
+identity/
+openclaw.json
+openclaw.json.*
+logs/
+media/
+canvas/
+completions/
+cron/
+sessions/
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+
+# Node
+node_modules/
+
+# Git
+.git/

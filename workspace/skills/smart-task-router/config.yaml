@@ -1,0 +1,58 @@
+# Smart Task Router 配置文件
+
+# 默认执行模式
+# 可选: auto, direct, parallel, team, deep
+default_mode: auto
+
+# 模型映射
+models:
+  low:
+    name: "kimi-coding/k2p5"
+    description: "轻量模型，用于简单查询"
+  medium:
+    name: "kimi-coding/k2p5"
+    description: "标准模型，用于常规任务"
+  high:
+    name: "kimi-coding/k2p5"
+    description: "强力模型，用于复杂任务"
+
+# 复杂度阈值
+complexity_thresholds:
+  low: 30      # 0-30 为低复杂度
+  medium: 60   # 30-60 为中等复杂度
+  high: 100    # 60+ 为高复杂度
+
+# 执行配置
+execution:
+  # 默认最大重试次数
+  max_retries: 2
+  
+  # 并行模式最大工作线程
+  max_workers: 3
+  
+  # 默认超时（秒）
+  timeout: 300
+  
+  # 是否默认验证结果
+  verify_results: true
+
+# 关键词映射（可自定义）
+keywords:
+  auto:
+    - "自动"
+    - "auto"
+  direct:
+    - "直接"
+    - "direct"
+  parallel:
+    - "并行"
+    - "parallel"
+    - "ulw"
+  team:
+    - "团队"
+    - "team"
+    - "ralph"
+  deep:
+    - "深度"
+    - "deep"
+    - "analyze"
