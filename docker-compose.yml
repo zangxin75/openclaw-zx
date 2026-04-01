@@ -1,0 +1,44 @@
+version: '3.8'
+
+services:
+  # Redis 消息总线
+  redis:
+    image: redis:7-alpine
+    container_name: oc-redis
+    hostname: redis
+    volumes:
+      - ./infrastructure/redis:/data
+      - ./config/redis.conf:/usr/local/etc/redis/redis.conf:ro
+    ports:
+      - "6379:6379"
+    networks:
+      - agent-network
+    command: redis-server /usr/local/etc/redis/redis.conf
+    restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 512M
+
+  # 可选：Web UI 管理面板
+  redis-commander:
+    image: rediscommander/redis-commander:latest
+    container_name: oc-redis-ui
+    environment:
+      - REDIS_HOSTS=local:redis:6379
+    ports:
+      - "8081:8081"
+    networks:
+      - agent-network
+    depends_on:
+      - redis
+    restart: unless-stopped
+
+networks:
+  agent-network:
+    driver: bridge
+    name: agent-network
+
+volumes:
+  redis-data:

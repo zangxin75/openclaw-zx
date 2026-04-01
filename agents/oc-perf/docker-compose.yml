@@ -1,0 +1,44 @@
+version: '3.8'
+
+services:
+  oc-perf:
+    image: node:20-slim
+    container_name: oc-perf
+    hostname: oc-perf
+    
+    environment:
+      - AGENT_NAME=oc-perf
+      - AGENT_ROLE=performance
+      - OPENCLAW_STATE_DIR=/home/agent/.openclaw
+      - SHARED_DIR=/shared
+      - REDIS_URL=redis://redis:6379
+    
+    volumes:
+      - ./workspace:/home/agent/workspace
+      - ./data:/home/agent/.openclaw
+      - ./config:/home/agent/config:ro
+      - ./logs:/home/agent/logs
+      - ../../shared:/shared:rw
+    
+    working_dir: /home/agent/workspace
+    
+    networks:
+      - agent-network
+    
+    command: >
+      bash -c "
+        echo 'oc-perf is ready' &&
+        tail -f /dev/null
+      "
+    
+    restart: unless-stopped
+    
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 2G
+
+networks:
+  agent-network:
+    external: true

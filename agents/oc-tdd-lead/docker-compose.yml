@@ -1,0 +1,45 @@
+version: '3.8'
+
+services:
+  oc-tdd-lead:
+    image: node:20-slim
+    container_name: oc-tdd-lead
+    hostname: oc-tdd-lead
+    
+    environment:
+      - AGENT_NAME=oc-tdd-lead
+      - AGENT_ROLE=tdd-lead
+      - AGENT_PHASE=COORDINATION
+      - OPENCLAW_STATE_DIR=/home/agent/.openclaw
+      - SHARED_DIR=/shared
+      - REDIS_URL=redis://redis:6379
+    
+    volumes:
+      - ./workspace:/home/agent/workspace
+      - ./data:/home/agent/.openclaw
+      - ./config:/home/agent/config:ro
+      - ./logs:/home/agent/logs
+      - ../../shared:/shared:rw
+    
+    working_dir: /home/agent/workspace
+    
+    networks:
+      - agent-network
+    
+    command: >
+      bash -c "
+        echo 'oc-tdd-lead is ready' &&
+        tail -f /dev/null
+      "
+    
+    restart: unless-stopped
+    
+    deploy:
+      resources:
+        limits:
+          cpus: '1'
+          memory: 1G
+
+networks:
+  agent-network:
+    external: true

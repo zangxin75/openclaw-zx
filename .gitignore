@@ -1,0 +1,26 @@
+# OpenClaw workspace (separate git repo)
+oc-zx/
+
+# OMC state and temporary files
+.omc/
+*.bak
+*.bak.*
+
+# IDE and editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+logs/
+
+# Temporary files
+tmp/
+temp/
