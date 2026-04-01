@@ -6,6 +6,18 @@ oc-zx/
 *.bak
 *.bak.*
 
+# 敏感信息
+credentials/
+identity/
+openclaw.json
+openclaw.json.*
+logs/
+media/
+canvas/
+completions/
+cron/
+sessions/
+
 # IDE and editor files
 .vscode/
 .idea/
@@ -17,9 +29,13 @@ oc-zx/
 .DS_Store
 Thumbs.db
 
-# Logs
-*.log
-logs/
+# Python
+__pycache__/
+*.pyc
+*.pyo
+
+# Node
+node_modules/
 
 # Temporary files
 tmp/
